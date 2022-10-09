@@ -43,6 +43,8 @@ def simple_function(request):
 
     # print(response)
 
+    global final
+
     for result in response.results:
         final = "{}".format(result.alternatives[0].transcript)
 
@@ -165,10 +167,11 @@ def simple_function(request):
 
     mainFunc(final)
  
-    return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
+    # return HttpResponse("""<html><script>window.location.replace('/');</script></html>""")
+    return render(request, "blank.html", {'text':summary_text, 'text1':final})
 
 def output(request):
-    return render(request, "output.html", {'text':summary_text})
+    return render(request, "output.html", {'text':summary_text, 'text1':final})
 
 def getpdf(request):  
     response = HttpResponse(content_type='application/pdf')  
@@ -179,7 +182,9 @@ def getpdf(request):
     # p.drawString(100,700, summary_text) 
     text = p.beginText(40,680)
     text.setFont("Times-Roman", 15)
-    for line in summary_text:
+    l= summary_text.split(".")
+
+    for line in l:
         text.textLine(line)
 
     p.drawText(text)
