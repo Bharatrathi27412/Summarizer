@@ -107,6 +107,7 @@ def simple_function(request):
                 freqTable[word] += 1
             else:
                 freqTable[word] = 1
+        print(freqTable)
         return freqTable
 
     # Sentence Tokenize
@@ -140,6 +141,7 @@ def simple_function(request):
     def summary(text):
         sum = 0
         sentenceValue = gen_rank_sentences_table(text)
+        print(sentenceValue)
         for sentence in sentenceValue:
             sum += sentenceValue[sentence]
         avg = int(sum / len(sentenceValue))
